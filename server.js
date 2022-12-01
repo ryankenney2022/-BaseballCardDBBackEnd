@@ -1,50 +1,58 @@
+require("dotenv").config();
 const express = require("express");
+const app = express();
+const cors = require("cors");
 const mongoose = require("mongoose");
+const port = 5000;
 
-mongoose.connect("mongodb://127.0.0.1:27017/ballcardDB");
-const cardSchema = new mongoose.Schema({
-  brand: String,
-  number: Number,
-  name: String,
-  team: String,
-  position: String,
-});
+app.use(cors());
+app.use(express.json());
 
-const Card = mongoose.model("Card", cardSchema);
+mongoose.connect(
+  `mongodb+srv://${process.env.MONGOOSE_USR}:${process.env.MONGOOSE_PWD}@cluster0.osrylpd.mongodb.net/ballcardDB`
+);
 
-function addCard() {
+app.use("/", require("./routes/cardRoute"));
+
+function createCard(newCard) {
   const card = new Card({
-    brand: "TestBrand",
-    number: 0,
-    name: "TestPlayer",
-    team: "TestTeam",
-    position: "TestPosition",
+    company: newCard.company,
+    number: newCard.number,
+    player: newCard.player,
+    team: newCard.team,
+    position: newCard.position,
   });
 
   card.save();
   return card;
 }
 
-function getCards() {
-  Card.find(function (err, cards) {
+function updateCard(cardId) {
+  Card.updateOne({ cardId }, { name: "" }, function (err) {
     if (err) {
       console.log(err);
     } else {
-      mongoose.connection.close();
-      return console.log(cards);
+      console.log("Card updated.");
     }
   });
 }
 
-const app = express();
-const port = 5000;
-
-app.get("/addCard", (req, res) => {
-  const newCard = addCard();
-  res.send(newCard);
+app.post("/addCard", (req, res) => {
+  const newCard = {
+    company: req.body.company,
+    number: req.body.number,
+    player: req.body.player,
+    team: req.body.team,
+    position: req.body.position,
+  };
+  createCard(newCard);
 });
 
-app.post("/displayCards", (req, res) => {});
+app.get("/displayCards", (req, res) => {
+  Card.find({}, function (err, cards) {
+    res.send(cards);
+  });
+});
 
 app.get("/", (req, res) => {
   res.send("This is a test.");
