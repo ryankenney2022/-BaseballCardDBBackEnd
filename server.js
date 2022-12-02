@@ -23,7 +23,6 @@ function createCard(newCard) {
     team: newCard.team,
     position: newCard.position,
     frontImgSrc: newCard.frontImgSrc,
-    backImgSrc: newCard.backImgSrc,
   });
 
   card.save();
@@ -49,7 +48,6 @@ app.post("/addCard", (req, res) => {
     team: req.body.team,
     position: req.body.position,
     frontImgSrc: req.body.frontImgSrc,
-    backImgSrc: req.body.backImgSrc,
   };
   createCard(newCard);
 });

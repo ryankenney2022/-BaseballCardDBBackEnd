@@ -8,7 +8,6 @@ const cardSchema = new mongoose.Schema({
   team: { type: String, required: [true, "Team name required."] },
   position: { type: String, required: [true, "Player position required."] },
   frontImgSrc: { type: String },
-  backImgSrc: { type: String },
 });
 
 const Card = mongoose.model("Card", cardSchema);

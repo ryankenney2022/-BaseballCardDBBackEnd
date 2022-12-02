@@ -10,7 +10,6 @@ router.route("/addCard").post((req, res) => {
   const team = req.body.team;
   const position = req.body.position;
   const frontImgSrc = req.body.frontImgSrc;
-  const backImgSrc = req.body.backImgSrc;
 
   const newCard = new Card({
     company,
@@ -20,7 +19,6 @@ router.route("/addCard").post((req, res) => {
     team,
     position,
     frontImgSrc,
-    backImgSrc,
   });
 
   newCard.save();
