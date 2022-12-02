@@ -4,17 +4,23 @@ const Card = require("../models/cardModel");
 
 router.route("/addCard").post((req, res) => {
   const company = req.body.company;
+  const year = req.body.year;
   const number = req.body.number;
   const player = req.body.player;
   const team = req.body.team;
   const position = req.body.position;
+  const frontImgSrc = req.body.frontImgSrc;
+  const backImgSrc = req.body.backImgSrc;
 
   const newCard = new Card({
     company,
+    year,
     number,
     player,
     team,
     position,
+    frontImgSrc,
+    backImgSrc,
   });
 
   newCard.save();

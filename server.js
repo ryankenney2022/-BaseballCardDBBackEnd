@@ -17,42 +17,48 @@ app.use("/", require("./routes/cardRoute"));
 function createCard(newCard) {
   const card = new Card({
     company: newCard.company,
+    year: newCard.year,
     number: newCard.number,
     player: newCard.player,
     team: newCard.team,
     position: newCard.position,
+    frontImgSrc: newCard.frontImgSrc,
+    backImgSrc: newCard.backImgSrc,
   });
 
   card.save();
   return card;
 }
 
-function updateCard(cardId) {
-  Card.updateOne({ cardId }, { name: "" }, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Card updated.");
-    }
-  });
-}
+// function updateCard(cardId) {
+//   Card.updateOne({ cardId }, { name: "" }, function (err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log("Card updated.");
+//     }
+//   });
+// }
 
 app.post("/addCard", (req, res) => {
   const newCard = {
     company: req.body.company,
+    year: req.body.year,
     number: req.body.number,
     player: req.body.player,
     team: req.body.team,
     position: req.body.position,
+    frontImgSrc: req.body.frontImgSrc,
+    backImgSrc: req.body.backImgSrc,
   };
   createCard(newCard);
 });
 
-app.get("/displayCards", (req, res) => {
-  Card.find({}, function (err, cards) {
-    res.send(cards);
-  });
-});
+// app.get("/displayCards", (req, res) => {
+//   Card.find({}, function (err, cards) {
+//     res.send(cards);
+//   });
+// });
 
 app.get("/", (req, res) => {
   res.send("This is a test.");
