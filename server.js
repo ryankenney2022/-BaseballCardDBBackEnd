@@ -14,20 +14,20 @@ mongoose.connect(
 
 app.use("/", require("./routes/cardRoute"));
 
-function createCard(newCard) {
-  const card = new Card({
-    company: newCard.company,
-    year: newCard.year,
-    number: newCard.number,
-    player: newCard.player,
-    team: newCard.team,
-    position: newCard.position,
-    frontImgSrc: newCard.frontImgSrc,
-  });
+// function createCard(newCard) {
+//   const card = new Card({
+//     company: newCard.company,
+//     year: newCard.year,
+//     number: newCard.number,
+//     player: newCard.player,
+//     team: newCard.team,
+//     position: newCard.position,
+//     frontImgSrc: newCard.frontImgSrc,
+//   });
 
-  card.save();
-  return card;
-}
+//   card.save();
+//   return card;
+// }
 
 // function updateCard(cardId) {
 //   Card.updateOne({ cardId }, { name: "" }, function (err) {
@@ -39,18 +39,28 @@ function createCard(newCard) {
 //   });
 // }
 
-app.post("/addCard", (req, res) => {
-  const newCard = {
-    company: req.body.company,
-    year: req.body.year,
-    number: req.body.number,
-    player: req.body.player,
-    team: req.body.team,
-    position: req.body.position,
-    frontImgSrc: req.body.frontImgSrc,
-  };
-  createCard(newCard);
-});
+// app.post("/addCard", (req, res) => {
+//   const newCard = {
+//     company: req.body.company,
+//     year: req.body.year,
+//     number: req.body.number,
+//     player: req.body.player,
+//     team: req.body.team,
+//     position: req.body.position,
+//     frontImgSrc: req.body.frontImgSrc,
+//   };
+//   createCard(newCard);
+// });
+
+// app.post("/deleteCard", (req, res) => {
+//   const id = req.body.index;
+//   console.log(id);
+// db.runCommand({
+//   delete: "cards",
+//   deletes: [{ q: { index: "D" }, limit: 0 }],
+//   writeConcern: { w: "majority", wtimeout: 5000 },
+// });
+// });
 
 // app.get("/displayCards", (req, res) => {
 //   Card.find({}, function (err, cards) {
@@ -58,9 +68,9 @@ app.post("/addCard", (req, res) => {
 //   });
 // });
 
-app.get("/", (req, res) => {
-  res.send("This is a test.");
-});
+// app.get("/", (req, res) => {
+//   res.send("This is a test.");
+// });
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

@@ -27,4 +27,18 @@ router.route("/addCard").post((req, res) => {
 router.route("/cards").get((req, res) => {
   Card.find().then((foundCards) => res.json(foundCards));
 });
+
+router.route("/deleteCard/:id").delete(async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  Card.findByIdAndDelete(id, (err, docs) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Deleted: ", docs);
+    }
+  });
+});
+
 module.exports = router;
